@@ -30,13 +30,6 @@ class CurrenciesController < ApplicationController
     end
   
     def show
-      @currencies = Currency.all
-      require 'net/http'
-      require 'json'
-      @url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=3faaac7a-4b4d-44d3-9001-1cb1e966e9ce'
-      @uri = URI(@url)
-      @response = Net::HTTP.get(@uri)
-      @search_coin = JSON.parse(@response)
 
       if params[:portfolio_id]
         @portfolio = Portfolio.find_by(id: params[:portfolio_id])
