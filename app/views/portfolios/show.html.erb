@@ -1,0 +1,15 @@
+<h1><%= @portfolio.name %></h1>
+<ul>
+  <% @portfolio.currencies.each do |currency| %>
+    <li><%= link_to currency.name, currency_path(currency) %></li>
+    
+  <% end %>
+</ul>
+
+<div>
+  <div class="panel-footer"></div>
+  <%= link_to 'Edit', edit_portfolio_path(@portfolio) %> |
+  <%= link_to 'Back', portfolios_path %> |
+  <%= link_to 'Delete', portfolio_path(@portfolio), method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
+

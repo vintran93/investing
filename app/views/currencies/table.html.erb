@@ -1,0 +1,54 @@
+<h1>Cryptocurrencies Portfolio</h1>
+<br/>
+<table class="table table-hover table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Symbol</th>
+        <th>Rank</th>
+        <th>1 HR</th>
+        <th>24 HR</th>
+        <th>7D</th>
+        <th>Current Price</th>
+        <th>Total Value</th>
+        <th>Total Paid</th>
+        <th>Profits/Losses
+        <th>Cost per Coin</th>
+        <th>Amount owned</th>
+      </tr>
+    </thead>
+    <% profit_loss = 0 %>
+    
+    <tbody>
+        <% @currencies.each do |currency| %>
+            <% if currency.user_id == current_user.id %>
+            <tr>
+            <% for x in @search_coin['data'] %>
+                <% if currency.symbol == x['symbol'] %>
+                    <td><%= link_to x['name'], currency %></td>
+                    <td><%= currency.symbol %></td>
+                    <td><%= x["cmc_rank"]%></td>
+                    <td><%= x['quote']['USD']['percent_change_1h'].round(2) %>%</td>
+                    <td><%= x['quote']['USD']['percent_change_24h'].round(2)  %>%</td>
+                    <td><%= x['quote']['USD']['percent_change_7d'].round(2)  %>%</td>
+                    <td>$<%= x['quote']['USD']['price'].round(2) %></td>
+                    <td>$<%= (x['quote']['USD']['price'].to_d * currency.amount_owned).round(2) %></td>
+                    <td>$<%= (currency.price_per * currency.amount_owned).round(2) %>
+                    <td>$<%= ((x['quote']['USD']['price'].to_d * currency.amount_owned) - (currency.price_per * currency.amount_owned)).round(2) %></td>
+                    <td>$<%= currency.price_per %></td>
+                    <% profit_loss += ((x['quote']['USD']['price'].to_d * currency.amount_owned) - (currency.price_per * currency.amount_owned)).round(2) %>
+                    <td><%= (currency.amount_owned).round(2) %></td>
+                <% end %>
+            <% end %>
+            </tr>
+            <% end %>
+        <% end %>
+      
+    </tbody>
+</table>
+<br>
+<br>
+<strong>Portfolio Profits/Loss:</strong> <%= number_to_currency(profit_loss) %>
+<br>
+<br>
+<%= link_to 'New Currency', new_currency_path, class: "btn btn-default" %>

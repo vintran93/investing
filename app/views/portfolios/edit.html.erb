@@ -1,0 +1,9 @@
+<h1>Editing <%= @portfolio.name %></h1>
+
+<%= form_for @portfolio  do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br />
+
+  <%= f.submit %>
+<% end %>

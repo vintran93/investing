@@ -1,0 +1,9 @@
+<h2><strong> All Currencies</strong> </h2>
+<ol>
+<% @currencies.each do |currency| %> 
+  <li><%= display_portfolio(currency) %> - <%= link_to currency.name, currency_path(currency) %> = <%= number_to_currency(currency.price_per * currency.amount_owned) %> </li><br>
+<% end %>
+
+</ol>
+<br>
+<%= link_to "Add New Currency", new_currency_path %>
