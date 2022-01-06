@@ -30,7 +30,6 @@ class CurrenciesController < ApplicationController
     end
   
     def show
-
       if params[:portfolio_id]
         @portfolio = Portfolio.find_by(id: params[:portfolio_id])
         @currency = @portfolio.currencies.find_by(id: params[:id])
@@ -53,11 +52,11 @@ class CurrenciesController < ApplicationController
     def create
         @currency = Currency.new(currency_params)
         @currency.user_id = current_user.id
-          if @currency.save
+        if @currency.save
             redirect_to @currency
-          else
+        else
             render :new
-          end
+        end
     end
   
     def edit

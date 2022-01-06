@@ -1,6 +1,4 @@
 class HomeController < ApplicationController
-end
-class HomeController < ApplicationController
 
     def index
       require 'net/http'
